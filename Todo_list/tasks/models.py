@@ -24,5 +24,3 @@ class Task(models.Model):
     def __str__(self):
         return self.title
     
-    ## check the requirments and work acordingly
-    

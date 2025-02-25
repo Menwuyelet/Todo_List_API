@@ -18,7 +18,7 @@ class AuthAPItest(APITestCase):
     def test_registration(self):
         data = {
             'email' : 'newuser@example.com',
-            'password' : 'newpass',
+            'password' : 'newpass122',
             'username' : 'newuser',
         }
 
@@ -30,7 +30,7 @@ class AuthAPItest(APITestCase):
     def test_register_duplicate_user(self):
         data = {
             'email': 'newuser1@example.com',
-            'password': 'newpass',
+            'password': 'newpass12',
             'username' : 'newuser1'
         }
 
@@ -47,15 +47,29 @@ class AuthAPItest(APITestCase):
     def test_register_invalid_user(self):
         data = {
             'email': 'newuser@example',
-            'password': 'newpass',
+            'password': 'newpass123',
             'username' : 'newuser'
         }
-
+        data1 = {
+            'email': 'newuser@example',
+            'password': 'newp',
+            'username' : 'newuser'
+        }
+        data2 = {
+            'email': 'newuser@example',
+            'password': 'newpassword',
+            'username' : 'newuser#$%'
+        }
+        
         response = self.client.post(reverse('signup'), data)
+        second_respons = self.client.post(reverse('signup'), data1)
+        third_respons = self.client.post(reverse('signup'), data2)
+
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(second_respons.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(third_respons.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(User.objects.filter(email = 'newuser@example').count(), 0)
-
     def test_login_user(self):
         data = {
             'email' : 'testuser@example.com',

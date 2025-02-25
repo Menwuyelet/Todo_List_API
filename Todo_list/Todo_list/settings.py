@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,11 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1(op8od4)9)mxox)_^#q8z)b0s=bkp9tap3eo5sra2$)@su+qr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-## security 
 """SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -94,6 +94,21 @@ DATABASES = {
     }
 }
 
+"""
+-------- I left this part commented because if i set up the database by my database on my local pc, it wont work for you.
+-------- But to show that i can do it i put a sample with no real values.
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'data_base_name', 
+        'USER': 'data_base_user_name',  
+        'PASSWORD': 'data_base_password', 
+        'HOST': 'localhost', 
+        'PORT': '3306',  
+    }
+}
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
