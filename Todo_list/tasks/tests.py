@@ -11,8 +11,8 @@ class TaskAPItest(APITestCase):
     def setUp(self):
         self.client = APIClient()
         
-        self.user = User.objects.create_user(email = 'testuser@example.com', password = 'testpassword')
-        self.other_user = User.objects.create_user(email = 'otheruser@example.com', password = 'otherpassword')
+        self.user = User.objects.create_user(username = 'testuser', email = 'testuser@example.com', password = 'testpassword')
+        self.other_user = User.objects.create_user(username = 'othertestuser', email = 'otheruser@example.com', password = 'otherpassword')
 
         self.task = Task.objects.create(
             title='Test Task',

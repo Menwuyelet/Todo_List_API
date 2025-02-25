@@ -6,12 +6,13 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ['email', 'password', 'username']
 
     def create(self, validated_data):
         user = User.objects.create_user(
             email = validated_data['email'],
-            password = validated_data['password']
+            password = validated_data['password'],
+            username = validated_data['username']
         )
         return user
     
@@ -21,7 +22,7 @@ class UpdateProfile(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ['username', 'email', 'password']
     def validated(self, data):
         user = self.instance
 

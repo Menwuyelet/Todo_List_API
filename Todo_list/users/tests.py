@@ -11,13 +11,15 @@ class AuthAPItest(APITestCase):
         
         self.user = User.objects.create_user(
             email = 'testuser@example.com',
-            password = 'testpass'
+            password = 'testpass',
+            username = 'testuser',
         )
 
     def test_registration(self):
         data = {
             'email' : 'newuser@example.com',
-            'password' : 'newpass'
+            'password' : 'newpass',
+            'username' : 'newuser',
         }
 
         response = self.client.post(reverse('signup'), data)
@@ -28,7 +30,8 @@ class AuthAPItest(APITestCase):
     def test_register_duplicate_user(self):
         data = {
             'email': 'newuser1@example.com',
-            'password': 'newpass'
+            'password': 'newpass',
+            'username' : 'newuser1'
         }
 
         response = self.client.post(reverse('signup'), data)
@@ -44,7 +47,8 @@ class AuthAPItest(APITestCase):
     def test_register_invalid_user(self):
         data = {
             'email': 'newuser@example',
-            'password': 'newpass'
+            'password': 'newpass',
+            'username' : 'newuser'
         }
 
         response = self.client.post(reverse('signup'), data)
@@ -55,7 +59,8 @@ class AuthAPItest(APITestCase):
     def test_login_user(self):
         data = {
             'email' : 'testuser@example.com',
-            'password' : 'testpass'
+            'password' : 'testpass',
+            'username' : 'newuser'
         }
 
         response = self.client.post(reverse('login'), data)
@@ -67,7 +72,8 @@ class AuthAPItest(APITestCase):
     def test_login_invalid_user(self):
         data = {
             'email': 'testuser1r@example.com',
-            'password': 'newpass'
+            'password': 'newpass',
+            'username' : 'newuser'
         }
 
         response = self.client.post(reverse('login'), data)
@@ -78,7 +84,8 @@ class AuthAPItest(APITestCase):
     def test_refresh_token(self):
         data = {
             'email' : 'testuser@example.com',
-            'password' : 'testpass'
+            'password' : 'testpass',
+            'username' : 'newuser',
         }
 
         login_response = self.client.post(reverse('login'), data)
@@ -101,7 +108,8 @@ class AuthAPItest(APITestCase):
     def test_logout(self):
         login_data = {
             'email' : 'testuser@example.com',
-            'password' : 'testpass'
+            'password' : 'testpass',
+            'username' : 'newuser',
         }
         login_response = self.client.post(reverse('login'), login_data)
 
@@ -117,7 +125,8 @@ class AuthAPItest(APITestCase):
     def test_delete_user(self):
         login_data = {
             'email' : 'testuser@example.com',
-            "password" : 'testpass'
+            "password" : 'testpass',
+            'username' : 'newuser'
         }
 
         login_response = self.client.post(reverse('login'), login_data)
