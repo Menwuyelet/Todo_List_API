@@ -65,7 +65,6 @@ class AuthAPItest(APITestCase):
         second_respons = self.client.post(reverse('signup'), data1)
         third_respons = self.client.post(reverse('signup'), data2)
 
-
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(second_respons.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(third_respons.status_code, status.HTTP_400_BAD_REQUEST)
@@ -113,7 +112,6 @@ class AuthAPItest(APITestCase):
     def test_invalid_refresh(self):
         refresh = "Invalid refresh token"
         
-
         response = self.client.post(reverse('token_refresh'), {'refresh' : refresh})
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -162,7 +160,3 @@ class AuthAPItest(APITestCase):
         error_detail = response.data["detail"]
         self.assertEqual(error_detail.code, 'not_authenticated') 
 
-
-
-
-############ Check the reverse name error causeing tests to fail.###############cc

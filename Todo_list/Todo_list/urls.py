@@ -20,6 +20,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('users.urls'), name = 'users_management'),
-    path('tasks/', include('tasks.urls'), name = 'task_managment'),
+    path('user/', include('users.urls'), name = 'users_management'), # user endpoints
+    path('tasks/', include('tasks.urls'), name = 'task_managment'), # task endpoints
 ]

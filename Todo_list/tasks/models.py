@@ -2,6 +2,7 @@ from django.db import models
 from users.models import User
 
 # Create your models here.
+
 class Task(models.Model):
     PRIORORITY_CHOICE = [
         ('Low', 'Low'),
@@ -13,7 +14,7 @@ class Task(models.Model):
         ('Completed', 'Completed')
     ]
 
-    title = models.CharField(max_length = 50, unique = True)
+    title = models.CharField(max_length = 50, unique = True) # unique because i use title as lookup field for delete and update views
     description = models.CharField(max_length = 500)
     due_date = models.DateField()
     priority = models.CharField(max_length = 10, choices = PRIORORITY_CHOICE )

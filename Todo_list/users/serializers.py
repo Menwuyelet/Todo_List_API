@@ -23,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(
             email = validated_data['email'],
             password = validated_data['password'],
-            username=validated_data.get('username', '') 
+            username=validated_data.get('username', '') # if user name is not provided it sets it to blank
         )
         return user
     

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 # Create your views here.
 
 class RegistrationView(generics.CreateAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny] # no need for authentication for new registration
     serializer_class = UserSerializer
 
 class LogoutView(APIView):

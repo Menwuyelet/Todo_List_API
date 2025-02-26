@@ -152,7 +152,6 @@ class TaskAPItest(APITestCase):
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
-    ##
     def test_search_tasks(self):
 
         Task.objects.create(
@@ -163,7 +162,7 @@ class TaskAPItest(APITestCase):
             user = self.user
         )
         # test search with title 
-        url = reverse('task_list')  # Assuming you support search via query params
+        url = reverse('task_list')
         search_term = 'Another'
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         response = self.client.get(f'{url}?title={search_term}')
@@ -177,9 +176,8 @@ class TaskAPItest(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 3)
-    ## 
+    
     def test_filter_tasks_by_priority(self):
-        """Test filtering tasks by priority."""
         Task.objects.create(
             title='Low Priority Task',
             description='Low Priority Task Description',
@@ -198,27 +196,21 @@ class TaskAPItest(APITestCase):
         url = reverse('task_list')
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         
-        # Filter by priority = low
         response = self.client.get(f'{url}?priority=low')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['title'], 'Low Priority Task')
 
-        # Filter by priority = medium
         response = self.client.get(f'{url}?priority=medium')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['title'], 'Medium Priority Task')
-
-        # assertion of the test
 
         url = reverse('task_list')
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 4)
-
-    ##
 
     def test_filter_tasks_by_status(self):
         Task.objects.create(
@@ -253,18 +245,13 @@ class TaskAPItest(APITestCase):
         self.assertEqual(len(response.data), 3)
         self.assertEqual(response.data[0]['title'], 'Pending Task')
 
-        # assertion of the test
-
         url = reverse('task_list')
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 4)
 
-    ###
-
     def test_sort_tasks_by_due_date(self):
-        """Test sorting tasks by due_date."""
         Task.objects.create(
             title='Earlier Task',
             description='Earlier Task Description',
@@ -296,14 +283,11 @@ class TaskAPItest(APITestCase):
         self.assertEqual(response.data[0]['title'], 'Another Task')
         self.assertEqual(response.data[1]['title'], 'Later task')
 
-    # assertion of the test
-
         url = reverse('task_list')
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 4)
-
 
     def test_other_user_task_access(self):
         url = reverse('task_detail', kwargs={'title': self.task.title})

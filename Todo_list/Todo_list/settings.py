@@ -25,16 +25,12 @@ SECRET_KEY = 'django-insecure-1(op8od4)9)mxox)_^#q8z)b0s=bkp9tap3eo5sra2$)@su+qr
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
 ALLOWED_HOSTS = ['*']
 
-"""SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_SSL_REDIRECT = True 
+SECURE_SSL_REDIRECT = not ('runserver' in sys.argv or 'test' in sys.argv) ## used to exclude the local host and test runs from enforcing https
 
-if 'test' in sys.argv: # used for testing the endpoints with out forcing https/ connection
-    SECURE_SSL_REDIRECT = False"""
 
 # Application definition
 
@@ -87,12 +83,6 @@ WSGI_APPLICATION = 'Todo_list.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 """
 -------- I left this part commented because if i set up the database by my database on my local pc, it wont work for you.
@@ -109,6 +99,14 @@ DATABASES = {
     }
 }
 """
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

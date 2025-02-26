@@ -10,7 +10,8 @@ class TaskListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        queryset = Task.objects.filter(user = self.request.user)
+        queryset = Task.objects.filter(user = self.request.user) # only the current users task will be shown
+         ## queries to filter the task list
         status = self.request.query_params.get('status')
         priority = self.request.query_params.get('priority')
         due_date = self.request.query_params.get('due_date')
@@ -46,7 +47,7 @@ class TaskCreateView(generics.CreateAPIView):
 class TaskUpdateView(generics.UpdateAPIView):
     serializer_class = TaskUpdateSerializer
     permission_classes = [IsAuthenticated]
-    lookup_field = 'title'
+    lookup_field = 'title' # looks up the task with its title
 
     def get_queryset(self):
         return Task.objects.filter(user = self.request.user)
@@ -62,7 +63,7 @@ class TaskDeleteView(generics.DestroyAPIView):
 class TaskDetailView(generics.RetrieveAPIView):
     serializer_class = TaskDetailSerializer
     permission_classes = [IsAuthenticated]
-    lookup_field = 'title' # looks up the task with its title not id
+    lookup_field = 'title' 
     
     def get_queryset(self):
         return Task.objects.filter(user = self.request.user) 
